@@ -2,15 +2,17 @@
 
 # helloCSE
 
+// = Fait
+
 1. Une page admin + Une page qui display les résultats
 2. PAGE ADMIN
-    <!-- 1. Créer un formulaire   -->
-        <!-- 1. Prénom  -->
-        <!-- 2. Nom  -->
-        <!-- 3. Implémentation photo de profil  -->
-        <!-- 4. description  -->
-    <!-- 2. Créer un objet data pour récupérer les inputs  -->
-    3. Envoyer ces datas dans une action pour requête POST sur firebase
+  //  1. Créer un formulaire
+    //    1. Prénom
+    //    2. Nom
+    //    3. Implémentation photo de profil
+    //    4. description
+  //  2. Créer un objet data pour récupérer les inputs
+  //  3. Envoyer ces datas dans une action pour requête POST sur firebase
     4. Créer un bouton qui permet d’update les champs de formulaire
         1. Voir comment ça marche pour faire une modification de profil
     5. Créer un bouton pour supprimer le profil

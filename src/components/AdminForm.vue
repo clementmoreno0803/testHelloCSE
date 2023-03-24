@@ -20,6 +20,7 @@
 export default {
   data() {
     return {
+      id: null,
       image: null,
       lastName: '',
       firstName: '',
@@ -30,6 +31,7 @@ export default {
     //Récupère les data, regroupe en objet pour dispatch l'action dans le store
     submitData() {
       const getData = {
+        id: new Date().toISOString,
         img: this.image,
         last: this.lastName,
         first: this.firstName,
@@ -39,8 +41,16 @@ export default {
     },
     // Permet de récupérer le nom de l'image via la fonction
     accessImage(event) {
-      this.image = event.target.files[0].name;
-    }
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.setFile({
+          name: file.name,
+          content: reader.result,
+        });
+      };
+      reader.readAsDataURL(file);
+    },
   }
 }
 </script>
