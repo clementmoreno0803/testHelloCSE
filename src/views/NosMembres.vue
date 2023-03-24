@@ -3,10 +3,12 @@
 <ul>
   <employee v-for="emp in Employee"
   :key="emp.id"
+  :id="emp.id"
   :first-name="emp.first"
   :last-name="emp.last"
   :description="emp.desc">
   </employee>
+
 </ul>
 </template>
 
@@ -14,7 +16,7 @@
 import {
   mapActions,
   // mapGetters,
-  // mapState,
+  mapState,
 } from 'vuex';
 import Employee from '../components/EmployeesInfos.vue'
 export default {
@@ -24,7 +26,10 @@ export default {
   computed:{
     Employee(){
       return this.$store.state.dataUser
-    }
+    },
+    ...mapState({
+      form: state => state.formData
+    })
 
   },
   // computed: {
@@ -32,7 +37,15 @@ export default {
   //   ...mapState(['dataUser'])
   // },
   methods: {
-    ...mapActions(['getEmployeeData']),
+    ...mapActions(['getEmployeeData',]),
+
+    updateForm() {
+      this.$store.commit('updateFormData', this.form);
+    },
+     removeEmployee() {
+      console.log(this.employee)
+     this.$store.dispatch('removeEmployee',this.employee)
+    }
   },
   mounted(){
     this.$store.dispatch('getEmployeeData')

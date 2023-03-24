@@ -38,6 +38,11 @@ export default {
         desc: this.description
       }
       this.$store.dispatch('sendEmployeeData', getData)
+      // Remettre les inputs à neuf après la saisie des éléments
+      this.image = null
+      this.lastName = ''
+      this.firstName = ''
+      this.description = ''
     },
     // Permet de récupérer le nom de l'image via la fonction
     accessImage(event) {
@@ -51,6 +56,7 @@ export default {
       };
       reader.readAsDataURL(file);
     },
+
   }
 }
 </script>

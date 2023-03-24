@@ -15,22 +15,22 @@
   //  3. Envoyer ces datas dans une action pour requête POST sur firebase
     4. Créer un bouton qui permet d’update les champs de formulaire
         1. Voir comment ça marche pour faire une modification de profil
-    5. Créer un bouton pour supprimer le profil
-        1. Selon l’id du profil
-            1. Générer un id à la création du profil
+   // 5. Créer un bouton pour supprimer le profil
+      //  1. Selon l’id du profil
+        //    1. Générer un id à la création du profil
 3. PAGE DE DISPLAY
-    1. Requête GET à firebase
-        1. mutation pour store ça dans un tableau d’objet dans le state (ex: user)
-        2. Getters pour display dans la view (trouver un nom cohérent)
+  //  1. Requête GET à firebase
+    //    1. mutation pour store ça dans un tableau d’objet dans le state (ex: user)
+    //    2. Getters pour display dans la view (trouver un nom cohérent)
 4. Gérer la responsivité
 
 ---
 
 COMPOSANTS
 
-1. Formulaire
+//1. Formulaire
 2. Base card
-3. Users Infos pour récupérer la data avec props
+// 3. Users Infos pour récupérer la data avec props
 
 ## Project setup
 ```

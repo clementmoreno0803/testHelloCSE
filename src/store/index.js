@@ -20,7 +20,16 @@ export default createStore({
     //Récupère la data depuis la requête get pour display les infos employé(e)s
     SET_USERS(state,data){
       state.dataUser = data;
-    }
+    },
+    // Mise à jour des données via le bouton update
+     updateFormData(state, data) {
+    state.formData = data;
+  },
+    // Suppression des données via le bouton suppression
+    REMOVE_EMPLOYEE(state, employeeProfileId) {
+    const updatedProfiles = state.dataUser.filter(profile => profile.id !== employeeProfileId)
+    state.dataUser = updatedProfiles
+  }
   },
   actions: {
 
@@ -29,21 +38,45 @@ export default createStore({
         try {
         const response = await axios.post('https://hellocse-b9033-default-rtdb.firebaseio.com/employees.json', data);
         commit('send_post_request', response.data);
+              //Alert pour prévenir que c'est ok
+      alert('Formulaire bien envoyé')
         } catch (error) {
           console.log(error);
+           alert('Formulaire non envoyé, veuillez retenter votre chance')
         }
       },
 
       // Créer une requête GET pour récupérer les employé(e)s de la base de donnée
     async getEmployeeData({commit}){
       try {
-        const response = await axios.get(`https://hellocse-b9033-default-rtdb.firebaseio.com/employees.json`);
-        console.log(response.data)
-        commit("SET_USERS", response.data);
+        await axios.get(`https://hellocse-b9033-default-rtdb.firebaseio.com/employees.json`)
+       //Générer un Id pour pouvoir cibler l'update et la suppression d'un profil
+        .then((response) => {
+        const data = response.data
+        const userProfiles = []
+        for (let key in data) {
+          userProfiles.push({
+            id: key,
+            ...data[key]
+          })
+        }
+          commit("SET_USERS", userProfiles)
+        });
       } catch (error) {
         alert(error);
         console.log(error);
       }
-    }
+    },
+    // Suppression d'un employée via le bouton de suppression selon l'iD
+    async removeEmployee({ commit }, id) {
+      console.log(id)
+    await axios.delete(`https://hellocse-b9033-default-rtdb.firebaseio.com/employees/${id}.json`)
+      .then(() => {
+        commit('REMOVE_EMPLOYEE', id)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
   },
 })
