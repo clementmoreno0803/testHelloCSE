@@ -13,8 +13,8 @@
     //    4. description
   //  2. Créer un objet data pour récupérer les inputs
   //  3. Envoyer ces datas dans une action pour requête POST sur firebase
-    4. Créer un bouton qui permet d’update les champs de formulaire
-        1. Voir comment ça marche pour faire une modification de profil
+  //  4. Créer un bouton qui permet d’update les champs de formulaire
+  1. Voir comment ça marche pour faire une modification de profil
    // 5. Créer un bouton pour supprimer le profil
       //  1. Selon l’id du profil
         //    1. Générer un id à la création du profil
@@ -31,6 +31,28 @@ COMPOSANTS
 //1. Formulaire
 2. Base card
 // 3. Users Infos pour récupérer la data avec props
+// 4. Modal
+
+---
+
+UPDATE DATA
+
+1. Récupéré l’ID de l’employée
+  //  1. Click event qui ouvre une modal avec un nouveau formulaire
+      //  1. réutilisation du formulaire ⇒ Comment passer un bouton en props ?
+            1. Fermer la modale à la submission du formulaire
+        //    OU en cliquant en dehors.
+    2. Click event sur le button qui dispatch une action avec un payload ‘Data”
+    3. Cette action récupère les data et va créer une PUT requête à firebase
+2. PUT request avec employeeData en payload
+    1. une fois la reponse récupéré
+3. Mutations du state
+4. Commit du store dans une map Mutation
+
+
+
+
+
 
 ## Project setup
 ```

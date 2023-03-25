@@ -8,20 +8,23 @@
   :last-name="emp.last"
   :description="emp.desc">
   </employee>
-
 </ul>
+<modal></modal>
 </template>
 
 <script>
+
 import {
   mapActions,
   // mapGetters,
   mapState,
 } from 'vuex';
+import Modal from '../components/ModalComponent.vue'
 import Employee from '../components/EmployeesInfos.vue'
 export default {
   components: {
-    Employee
+    Employee,
+    Modal
   },
   computed:{
     Employee(){

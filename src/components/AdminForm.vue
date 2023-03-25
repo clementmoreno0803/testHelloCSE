@@ -38,6 +38,9 @@ export default {
         desc: this.description
       }
       this.$store.dispatch('sendEmployeeData', getData)
+      this.$store.dispatch('secondVuexFunction',getData);
+
+
       // Remettre les inputs à neuf après la saisie des éléments
       this.image = null
       this.lastName = ''
@@ -45,24 +48,21 @@ export default {
       this.description = ''
     },
     // Permet de récupérer le nom de l'image via la fonction
-    accessImage(event) {
-      const file = event.target.files[0];
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.setFile({
-          name: file.name,
-          content: reader.result,
-        });
-      };
-      reader.readAsDataURL(file);
-    },
+    // accessImage(event) {
+    //   const file = event.target.files[0];
+    //   const reader = new FileReader();
+    //   reader.onload = () => {
+    //     this.setFile({
+    //       name: file.name,
+    //       content: reader.result,
+    //     });
+    //   };
+    //   reader.readAsDataURL(file);
+    // },
 
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-
 <style scoped>
 h3 {
   margin: 40px 0 0;
@@ -86,6 +86,9 @@ a {
   width: 50%;
   border: 1px solid black;
   margin: 0 auto;
+    position: relative;
+  z-index: 10;
+    background: white;
 }
 
 form {
