@@ -1,26 +1,36 @@
 <template>
 <div v-show="show" >
-  <div class="backdrop" @click="closeModal" :id="id">
+  <div class="backdrop" @click="closeModal" >
     <div class="modal-container" @click.stop>
-    <admin-form ></admin-form>
+    <admin-form :id="id"></admin-form>
     </div>
   </div>
 </div>
 </template>
 
 <script>
-import AdminForm from '../components/AdminForm.vue'
+import AdminForm from './AdminForm.vue'
 export default {
   components: {
     AdminForm
   },
-  props: ['id','show'],
+  props:{
+    id:{
+      type: String,
+      require: true
+    },
+    show:{
+      type: Boolean,
+      require: true
+    },
+  },
   data() {
     return {
       isVisible: this.visible
     }
   },
   methods:{
+    // Envoi l'info au parent de la fermeture de la modal
     closeModal() {
     this.$emit("close-modal");
     }

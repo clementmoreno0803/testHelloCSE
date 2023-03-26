@@ -6,7 +6,7 @@
   <button @click="toggleShowValue">Update profil</button>
   <button @click="removeEmployee">Supprimer profil</button>
 </li>
-<modal v-bind:show="showValue" @close-modal="toggleShowValue"></modal>
+<modal v-bind:show="showValue" @close-modal="toggleShowValue" :id="id"></modal>
 </template>
 
 <script>
@@ -17,7 +17,7 @@ export default {
   },
   data() {
     return {
-      showValue: false
+      showValue: false,
     }
   },
   props: {
@@ -46,17 +46,11 @@ export default {
       require: true
     }
   },
-  // computed: {
-  //   //Récupérer le nom du fichier et créer un url avec
-  //   imageUrl() {
-  //     console.log(URL.createObjectURL())
-  //     return URL.createObjectURL();
-  //   },
-  // },
   methods: {
-    // updateForm() {
-    //   this.$store.commit('updateFormData', this.form);
-    // },
+    // Récupère l'iD et le dispatch pour l'update du profil
+    updateForm() {
+      this.$store.dispatch('updateFormData', this.id);
+    },
     // Récupération de l'iD et dispatch de l'action pour supprimer l'employé(e) en base de donnée
     removeEmployee() {
       this.$store.dispatch('removeEmployee', this.id)

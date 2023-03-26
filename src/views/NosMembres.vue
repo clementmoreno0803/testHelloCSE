@@ -13,9 +13,7 @@
 </template>
 
 <script>
-
 import {
-  mapActions,
   // mapGetters,
   mapState,
 } from 'vuex';
@@ -26,8 +24,9 @@ export default {
     Employee,
     Modal
   },
-  computed:{
-    Employee(){
+  props: ['id'],
+  computed: {
+    Employee() {
       return this.$store.state.dataUser
     },
     ...mapState({
@@ -35,22 +34,15 @@ export default {
     })
 
   },
-  // computed: {
-  //   ...mapGetters(['displayEmployees']),
-  //   ...mapState(['dataUser'])
-  // },
   methods: {
-    ...mapActions(['getEmployeeData',]),
-
     updateForm() {
-      this.$store.commit('updateFormData', this.form);
+      this.$store.commit('updateEmployee', this.id);
     },
-     removeEmployee() {
-      console.log(this.employee)
-     this.$store.dispatch('removeEmployee',this.employee)
+    removeEmployee() {
+      this.$store.dispatch('removeEmployee', this.employee)
     }
   },
-  mounted(){
+  mounted() {
     this.$store.dispatch('getEmployeeData')
   }
 }

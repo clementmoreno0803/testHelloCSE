@@ -37,19 +37,26 @@ COMPOSANTS
 
 UPDATE DATA
 
-1. Récupéré l’ID de l’employée
+  // 1. Récupéré l’ID de l’employée
   //  1. Click event qui ouvre une modal avec un nouveau formulaire
       //  1. réutilisation du formulaire ⇒ Comment passer un bouton en props ?
             1. Fermer la modale à la submission du formulaire
         //    OU en cliquant en dehors.
-    2. Click event sur le button qui dispatch une action avec un payload ‘Data”
-    3. Cette action récupère les data et va créer une PUT requête à firebase
-2. PUT request avec employeeData en payload
-    1. une fois la reponse récupéré
-3. Mutations du state
-4. Commit du store dans une map Mutation
+  //  2. Click event sur le button qui dispatch une action avec un payload ‘Data”
+  //  3. Cette action récupère les data et va créer une PUT requête à firebase
+  // 2. PUT request avec employeeData en payload
+  //  1. une fois la reponse récupéré
+  //  3. M utations du state
+  //4. Commit du store dans une map Mutation
 
+// ---
 
+DESIGN
+
+  1. Créer une BaseCard pour styliser le dashboard
+  2. Créer l'ouverture du dashboard au click (active class ?)
+  3. Permettre de rajouter une photo de profil
+  4. Styliser le côté "Admin" et la navigation
 
 
 

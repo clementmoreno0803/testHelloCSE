@@ -1,6 +1,6 @@
 <template>
 <div class="form-container">
-  <form @submit.prevent="submitData">
+  <form :id='id' @submit.prevent="submitData">
     <label for="thumbnail">Ajoutez une photo</label>
     <input type="file" name="Thumnail" id="thumbnail" @change="accessImage($event)">
     <label for="lastName">Ajoutez un nom</label>
@@ -17,10 +17,18 @@
 </template>
 
 <script>
+import {
+  mapActions
+} from 'vuex';
 export default {
+  props: {
+    id: {
+      type: String,
+      require: true
+    }
+  },
   data() {
     return {
-      id: null,
       image: null,
       lastName: '',
       firstName: '',
@@ -28,18 +36,23 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['sendEmployeeData', 'updateEmployee']),
     //Récupère les data, regroupe en objet pour dispatch l'action dans le store
     submitData() {
       const getData = {
-        id: new Date().toISOString,
+        id: this.id,
         img: this.image,
         last: this.lastName,
         first: this.firstName,
         desc: this.description
       }
-      this.$store.dispatch('sendEmployeeData', getData)
-      this.$store.dispatch('secondVuexFunction',getData);
+      // Permet de lancer une action ou l'autre selon l'état de l'objet
+      if (getData.id) {
+        this.$store.dispatch('updateEmployee', getData)
 
+      } else {
+        this.$store.dispatch('sendEmployeeData', getData)
+      }
 
       // Remettre les inputs à neuf après la saisie des éléments
       this.image = null
@@ -63,6 +76,7 @@ export default {
   }
 }
 </script>
+
 <style scoped>
 h3 {
   margin: 40px 0 0;
@@ -86,9 +100,9 @@ a {
   width: 50%;
   border: 1px solid black;
   margin: 0 auto;
-    position: relative;
+  position: relative;
   z-index: 10;
-    background: white;
+  background: white;
 }
 
 form {
