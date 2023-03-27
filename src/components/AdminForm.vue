@@ -10,7 +10,6 @@
     <label for="description">Ajoutez une description</label>
     <textarea id="description" rows="10" v-model="description"></textarea>
     <input type="submit" id="submit">
-
   </form>
 </div>
 </template>
@@ -24,7 +23,7 @@ export default {
     id: {
       type: String,
       require: true
-    }
+    },
   },
   data() {
     return {

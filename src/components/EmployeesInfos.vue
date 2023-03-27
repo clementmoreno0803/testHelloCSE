@@ -1,12 +1,16 @@
 <template>
 <div class="employee-list">
-  <img :src="image" class="thumbnail " alt="Thumbnail">
-  <h3>{{firstName}} {{lastName}}</h3>
+  <div class="profil">
+    <img :src="image" class="thumbnail " alt="Thumbnail">
+    <div class="update-profil">
+      <i class="fa-solid fa-pencil" @click="toggleShowValue"></i>
+      <i class="fa-solid fa-trash" @click="removeEmployee"></i>
+      <h3>{{firstName}} {{lastName}}</h3>
+    </div>
+  </div>
   <span>{{description}}</span>
-  <button @click="toggleShowValue">Update profil</button>
-  <button @click="removeEmployee">Supprimer profil</button>
 </div>
-<modal v-bind:show="showValue" @close-modal="toggleShowValue" :id="id"></modal>
+<modal :show="showValue" @close-modal="toggleShowValue" :id="id"></modal>
 </template>
 
 <script>
@@ -65,11 +69,32 @@ export default {
 
 <style scoped>
 .thumbnail {
-  width: auto;
-  height: 100px;
+  width: 100px;
+  height: auto;
 
 }
-.employee-list{
+
+.employee-list {
   display: block;
+}
+
+.profil {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+i {
+  font-size: 1.35rem;
+  width: 30%;
+  cursor: pointer;
+}
+
+.fa-pencil {
+  color: rgb(132, 132, 228)
+}
+
+.fa-trash {
+  color: rgb(230, 138, 138);
 }
 </style>
