@@ -1,12 +1,17 @@
 <template>
-  <nav>
+<nav>
+  <img src="./assets/logo-hcse.png" alt="logo" class="logo">
+  <ul>
     <router-link to="/">Home</router-link> |
-    <router-link to="/nos-membres">Nos membres</router-link>
-  </nav>
-  <router-view/>
+    <router-link to="/nos-membres">Membres</router-link>
+  </ul>
+</nav>
+<router-view />
 </template>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;700&display=swap');
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -17,6 +22,9 @@
 
 nav {
   padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 nav a {
@@ -26,5 +34,29 @@ nav a {
 
 nav a.router-link-exact-active {
   color: #42b983;
+}
+
+ul {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+}
+
+.logo {
+  width: 200px;
+}
+
+
+@media (min-width: 768px) {
+nav {
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  width: 100px;
+}
 }
 </style>

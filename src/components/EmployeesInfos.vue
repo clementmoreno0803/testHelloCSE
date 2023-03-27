@@ -1,11 +1,11 @@
 <template>
-<li>
+<div class="employee-list">
   <img :src="image" class="thumbnail " alt="Thumbnail">
   <h3>{{firstName}} {{lastName}}</h3>
   <span>{{description}}</span>
   <button @click="toggleShowValue">Update profil</button>
   <button @click="removeEmployee">Supprimer profil</button>
-</li>
+</div>
 <modal v-bind:show="showValue" @close-modal="toggleShowValue" :id="id"></modal>
 </template>
 
@@ -58,14 +58,18 @@ export default {
     //Permet de toggle la modal
     toggleShowValue() {
       this.showValue = !this.showValue;
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style scoped>
 .thumbnail {
-  width: 50px;
-  height: 50px;
+  width: auto;
+  height: 100px;
+
+}
+.employee-list{
+  display: block;
 }
 </style>

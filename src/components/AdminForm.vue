@@ -1,15 +1,14 @@
 <template>
 <div class="form-container">
-  <form :id='id' @submit.prevent="submitData">
+  <form :id='id' @closeModal='closeModal' @submit.prevent="submitData">
     <label for="thumbnail">Ajoutez une photo</label>
-    <input type="file" name="Thumnail" id="thumbnail" @change="accessImage($event)">
+    <input type="file" name="Thumnail" id="thumbnail" @change="handleFileInputChange">
     <label for="lastName">Ajoutez un nom</label>
     <input type="text" v-model='lastName' id="lastName">
     <label for="firstName">Ajoutez un prénom</label>
     <input type="text" v-model='firstName' id="firstName">
     <label for="description">Ajoutez une description</label>
     <textarea id="description" rows="10" v-model="description"></textarea>
-    <label for="submit">Enregistrer le nouvel employé</label>
     <input type="submit" id="submit">
 
   </form>
@@ -29,7 +28,7 @@ export default {
   },
   data() {
     return {
-      image: null,
+      image: '',
       lastName: '',
       firstName: '',
       description: ''
@@ -37,7 +36,22 @@ export default {
   },
   methods: {
     ...mapActions(['sendEmployeeData', 'updateEmployee']),
-    //Récupère les data, regroupe en objet pour dispatch l'action dans le store
+
+    // Récupère le fichier télécharger, le transforme en url et le rajoute dans les data
+    handleFileInputChange(event) {
+      const file = event.target.files[0];
+      console.log(file)
+      const reader = new FileReader();
+      console.log(reader)
+      reader.onload = () => {
+        const url = URL.createObjectURL(file);
+        return this.image = url
+      }
+        reader.readAsDataURL(file);
+
+    },
+
+        //Récupère les data, regroupe en objet pour dispatch l'action dans le store
     submitData() {
       const getData = {
         id: this.id,
@@ -46,6 +60,8 @@ export default {
         first: this.firstName,
         desc: this.description
       }
+
+      console.log(getData)
       // Permet de lancer une action ou l'autre selon l'état de l'objet
       if (getData.id) {
         this.$store.dispatch('updateEmployee', getData)
@@ -60,19 +76,6 @@ export default {
       this.firstName = ''
       this.description = ''
     },
-    // Permet de récupérer le nom de l'image via la fonction
-    // accessImage(event) {
-    //   const file = event.target.files[0];
-    //   const reader = new FileReader();
-    //   reader.onload = () => {
-    //     this.setFile({
-    //       name: file.name,
-    //       content: reader.result,
-    //     });
-    //   };
-    //   reader.readAsDataURL(file);
-    // },
-
   }
 }
 </script>
@@ -97,16 +100,34 @@ a {
 }
 
 .form-container {
-  width: 50%;
-  border: 1px solid black;
   margin: 0 auto;
   position: relative;
   z-index: 10;
-  background: white;
 }
 
 form {
   display: flex;
   flex-direction: column;
+  margin: 20px 0;
+  border: 1px solid #cccc;
+  border-radius: 20px;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+}
+
+label {
+  font-size: 1rem;
+  font-family: 'Montserrat';
+  text-align: left;
+  color: #d9d9d9;
+  font-weight: 400;
+}
+
+input,
+textarea {
+  border: 1px solid #cccc;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  background: transparent;
 }
 </style>

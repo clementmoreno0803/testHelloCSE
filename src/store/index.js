@@ -4,11 +4,17 @@ export default createStore({
   state: {
     // Store les data objets de chaque nouvel employé(e)s
     dataUser: [],
+    activeElementId: null,
   },
   getters: {
     //display l'état du state dans la page Nos membres
     displayEmployees(state) {
       return state.dataUser;
+    },
+    firstEmployee(state){
+      if(state.dataUser.length == 0){
+        return state.dataUser
+      }
     }
   },
   mutations: {
@@ -29,7 +35,15 @@ export default createStore({
     UPDATE_EMPLOYEE(state, updatedObject) {
       const index = state.dataUser.findIndex(obj => obj.id === updatedObject.id);
       state.dataUser.splice(index, 1, updatedObject);
-    }
+    },
+    // Récupère l'iD et le transmet au state activeElementId
+    setActiveElementId(state, id) {
+      state.activeElementId = id;
+    },
+    //Récupérer l'url de l'image
+    updateImageURL(state, url) {
+      state.dataUser = url;
+    },
   },
   actions: {
     // Créer une requête POST pour envoyer les datas saisies dans le formulaire
@@ -53,6 +67,7 @@ export default createStore({
             for (let key in data) {
               employeeProfiles.push({
                 id: key,
+
                 ...data[key]
               })
             }
