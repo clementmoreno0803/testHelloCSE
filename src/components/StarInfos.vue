@@ -1,12 +1,12 @@
 <template>
-<div class="employee-list-container">
-  <h3 @click="openEmployee(id)">{{firstName}} {{lastName}}</h3>
-  <div class="employee-list" v-show="isShow">
+<div class="star-list-container">
+  <h3 @click="openStar(id)">{{firstName}} {{lastName}}</h3>
+  <div class="star-list" v-show="isShow">
     <div class="profil">
       <img :src="image" class="thumbnail " alt="Thumbnail">
       <div class="update-profil">
         <i class="fa-solid fa-pencil" @click="toggleShowValue"></i>
-        <i class="fa-solid fa-trash" @click="removeEmployee"></i>
+        <i class="fa-solid fa-trash" @click="removeStar"></i>
         <h4>{{firstName}} {{lastName}}</h4>
       </div>
     </div>
@@ -64,16 +64,16 @@ export default {
     updateForm() {
       this.$store.dispatch('updateFormData', this.id);
     },
-    // Récupération de l'iD et dispatch de l'action pour supprimer l'employé(e) en base de donnée
-    removeEmployee() {
-      this.$store.dispatch('removeEmployee', this.id)
+    // Récupération de l'iD et dispatch de l'action pour supprimer la star en base de donnée
+    removeStar() {
+      this.$store.dispatch('removeStar', this.id)
     },
     //Permet de toggle la modal
     toggleShowValue() {
       this.showValue = !this.showValue;
     },
-    openEmployee(id) {
-      this.$store.commit('setOpenEmployeeID', this.$store.getters.isOpen(id) ? null : id)
+    openStar(id) {
+      this.$store.commit('setOpenStarID', this.$store.getters.isOpen(id) ? null : id)
     }
   },
 }
@@ -89,7 +89,7 @@ h3 {
   padding: 10px;
 }
 
-.employee-list-container {
+.star-list-container {
   display: flex;
   flex-direction: column;
 }
@@ -100,7 +100,7 @@ h3 {
   margin-bottom: 20px;
 }
 
-.employee-list {
+.star-list {
   display: block;
   border: 2px solid rgb(32, 143, 189);
   padding: 20px;
@@ -129,7 +129,7 @@ i {
 }
 
 @media (min-width: 768px) {
-  .employee-list-container {
+  .star-list-container {
     display: flex;
     flex-direction: row;
   }

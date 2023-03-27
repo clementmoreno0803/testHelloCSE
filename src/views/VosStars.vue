@@ -1,47 +1,53 @@
 <template>
-<h2>Vos membres</h2>
-<div v-if="!firstEmployee" class="member-container">
+<h2>Vos stars</h2>
+<div v-if="!firstStar" class="star-container">
   <div class="dashboard">
-          <employee v-for="emp in Employee" :key="emp.id" :id="emp.id" :image="emp.img" :first-name="emp.first" :last-name="emp.last" :description="emp.desc">
-          </employee>
+          <stars v-for="star in Stars"
+          :key="star.id"
+          :id="star.id"
+          :image="star.img"
+          :first-name="star.first"
+          :last-name="star.last"
+          :description="star.desc">
+          </stars>
     <modal></modal>
   </div>
 </div>
 <h3 v-else>
-  Renseignez votre premier employé(e)
+  Renseignez votre première star..
 </h3>
 </template>
 
 <script>
 import Modal from '../components/ModalComponent.vue'
-import Employee from '../components/EmployeesInfos.vue'
+import Stars from '../components/StarInfos.vue'
 export default {
   components: {
-    Employee,
+    Stars,
     Modal,
   },
   computed: {
-    Employee() {
-      return this.$store.state.dataUser
+    Stars() {
+      return this.$store.state.stars
     },
     Form() {
       return this.$store.state.formData
     },
-    firstEmployee() {
-      return this.$store.getters.firstEmployee
+    firstStar() {
+      return this.$store.getters.firstStar
     },
   },
 
   methods: {
     updateForm() {
-      this.$store.commit('updateEmployee', this.id);
+      this.$store.commit('updateStar', this.id);
     },
-    removeEmployee() {
-      this.$store.dispatch('removeEmployee', this.employee)
+    removeStar() {
+      this.$store.dispatch('removeStar', this.star)
     },
   },
   mounted() {
-    this.$store.dispatch('getEmployeeData')
+    this.$store.dispatch('getStarData')
   }
 }
 </script>
@@ -65,10 +71,7 @@ ul {
   flex-direction: column;
 }
 
-/* li{
-  display: none;
-} */
-.member-container {
+.star-container {
   display: flex;
   justify-content: center;
   align-items: center;

@@ -3,7 +3,7 @@
   <img src="./assets/logo-hcse.png" alt="logo" class="logo">
   <ul>
     <router-link to="/">Admin</router-link> |
-    <router-link to="/nos-membres">Membres</router-link>
+    <router-link to="/vos-stars">Stars</router-link>
   </ul>
 </nav>
 <router-view />

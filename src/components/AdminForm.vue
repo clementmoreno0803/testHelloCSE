@@ -34,7 +34,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['sendEmployeeData', 'updateEmployee']),
+    ...mapActions(['sendStarData', 'updateStar']),
 
     // Récupère le fichier télécharger, le transforme en url et le rajoute dans les data
     handleFileInputChange(event) {
@@ -63,14 +63,14 @@ export default {
       console.log(getData)
       // Permet de lancer une action ou l'autre selon l'état de l'objet
       if (getData.id) {
-        this.$store.dispatch('updateEmployee', getData)
+        this.$store.dispatch('updateStar', getData)
 
       } else {
-        this.$store.dispatch('sendEmployeeData', getData)
+        this.$store.dispatch('sendStarData', getData)
       }
 
       // Remettre les inputs à neuf après la saisie des éléments
-      this.image = null
+      this.image = ''
       this.lastName = ''
       this.firstName = ''
       this.description = ''

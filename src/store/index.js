@@ -2,106 +2,105 @@ import { createStore } from 'vuex'
 import axios from 'axios';
 export default createStore({
   state: {
-    // Store les data objets de chaque nouvel employé(e)s
-    dataUser: [],
-    // Store l'état de base de chaque card employé
-    openedEmployeeId : null
+    // Store les data objets de chaque nouvelle star
+    stars: [],
+    // Store l'état de base de chaque card star
+    openedStarId : null
   },
   getters: {
-    //display l'état du state dans la page Nos membres
-    displayEmployees(state) {
-      return state.dataUser;
+    //display l'état du state dans la page Vos Stars
+    displayStar(state) {
+      return state.stars;
     },
-    // Permet de display un message si aucun employé(e) n'est encore entré en base de donnée
-    firstEmployee(state){
-      if(state.dataUser.length == 0){
-        return state.dataUser
+    // Permet de display un message si aucune star n'est encore entrée en base de donnée
+    firstStar(state){
+      if(state.stars.length == 0){
+        return state.stars
       }
     },
-    // Permet de savoir si l'id de l'employé(e) est égal à l'id du nom sur lequel on clique
+    // Permet de savoir si l'id de la star est égal à l'id du nom sur lequel on clique
     isOpen: state => id => {
-      return state.openedEmployeeId == id
+      return state.openedStarId == id
 
     }
   },
   mutations: {
-    //Récupère la data et la store dans le dataUser state
+    //Récupère la data et la store dans le stars state
     SEND_POST_REQUEST(state, data) {
-      state.dataUser = data;
+      state.stars = data;
     },
-    //Récupère la data depuis la requête get pour display les infos employé(e)s
-    SET_USERS(state, data) {
-      state.dataUser = data;
+    //Récupère la data depuis la requête get pour display les infos des stars
+    SET_STARS(state, data) {
+      state.stars = data;
     },
     // Suppression des données via le bouton suppression
-    REMOVE_EMPLOYEE(state, employeeProfileId) {
-      const updatedProfiles = state.dataUser.filter(profile => profile.id !== employeeProfileId)
-      state.dataUser = updatedProfiles
+    REMOVE_STAR(state, starProfileId) {
+      const updatedProfiles = state.stars.filter(profile => profile.id !== starProfileId)
+      state.stars = updatedProfiles
     },
     // Update les données via le formulaire d'Admin présent sur la page
-    UPDATE_EMPLOYEE(state, updatedObject) {
-      const index = state.dataUser.findIndex(obj => obj.id === updatedObject.id);
-      state.dataUser.splice(index, 1, updatedObject);
+    UPDATE_STAR(state, updatedObject) {
+      const index = state.stars.findIndex(obj => obj.id === updatedObject.id);
+      state.stars.splice(index, 1, updatedObject);
     },
     // Permet de récupérer l'id du composent à toggle
-    setOpenEmployeeID(state, id){
-      state.openedEmployeeId = id
+    setOpenStarID(state, id){
+      state.openedStarId = id
     },
-
-    //Récupérer l'url de l'image
+    //Récupére l'url de l'image
     updateImageURL(state, url) {
-      state.dataUser = url;
+      state.stars = url;
     },
   },
   actions: {
-    // Créer une requête POST pour envoyer les datas saisies dans le formulaire
-    async sendEmployeeData({ commit }, data) {
+    // Créer une requête POST pour envoyer les datas saisies dans le formulaire vers la DB
+    async sendStarData({ commit }, data) {
       try {
-        const res = await axios.post('https://hellocse-b9033-default-rtdb.firebaseio.com/employees.json', data)
+        const res = await axios.post('https://hellocse-b9033-default-rtdb.firebaseio.com/stars.json', data)
         commit('SEND_POST_REQUEST', res.data);
       } catch (error) {
         console.log(error);
       }
     },
 
-    // Créer une requête GET pour récupérer les employé(e)s de la base de donnée
-    async getEmployeeData({ commit }) {
+    // Créer une requête GET pour récupérer les stars de la base de donnée
+    async getStarData({ commit }) {
       try {
-        await axios.get(`https://hellocse-b9033-default-rtdb.firebaseio.com/employees.json`)
+        await axios.get(`https://hellocse-b9033-default-rtdb.firebaseio.com/stars.json`)
         //Générer un Id pour pouvoir cibler l'update et la suppression d'un profil
           .then((response) => {
             const data = response.data
-            const employeeProfiles = []
+            const starProfiles = []
             for (let key in data) {
-              employeeProfiles.push({
+              starProfiles.push({
                 id: key,
 
                 ...data[key]
               })
             }
-            commit("SET_USERS", employeeProfiles)
+            commit("SET_STARS", starProfiles)
           })
       } catch (error) {
         alert(error);
         console.log(error);
       }
     },
-    // Suppression d'un employée via le bouton de suppression selon l'iD
-    async removeEmployee({ commit }, id) {
-      await axios.delete(`https://hellocse-b9033-default-rtdb.firebaseio.com/employees/${id}.json`)
+    // Suppression d'une star via le bouton de suppression selon l'iD
+    async removeStar({ commit }, id) {
+      await axios.delete(`https://hellocse-b9033-default-rtdb.firebaseio.com/stars/${id}.json`)
         .then(() => {
-          commit('REMOVE_EMPLOYEE', id)
+          commit('REMOVE_STAR', id)
         })
         .catch((error) => {
           console.log(error)
         })
     },
     // Update d'un profil selon l'iD
-    async updateEmployee({ commit }, updatedObject) {
+    async updateStar({ commit }, updatedObject) {
       try {
         const { id, ...rest } = updatedObject;
-        await axios.put(`https://hellocse-b9033-default-rtdb.firebaseio.com/employees/${id}.json`, rest)
-        commit('UPDATE_EMPLOYEE', updatedObject)
+        await axios.put(`https://hellocse-b9033-default-rtdb.firebaseio.com/stars/${id}.json`, rest)
+        commit('UPDATE_STAR', updatedObject)
       } catch (error) {
         console.log(error);
       }
