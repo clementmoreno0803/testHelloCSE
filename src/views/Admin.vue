@@ -1,25 +1,19 @@
 <template>
 <div class="admin-container">
   <h2>Commençons par</h2>
-  <h3>Renseigner vos employées</h3>
+  <h3>Renseigner vos stars</h3>
   <admin-form></admin-form>
 </div>
 </template>
 
 <script>
 import AdminForm from '@/components/AdminForm.vue'
-// @ is an alias to /src
 
 export default {
   name: 'HomeView',
   components: {
     AdminForm
   },
-  methods: {
-    sendData(data) {
-      this.$store.dispatch('sendEmployeeData', data)
-    }
-  }
 }
 </script>
 
