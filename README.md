@@ -22,14 +22,13 @@
   //  1. Requête GET à firebase
     //    1. mutation pour store ça dans un tableau d’objet dans le state (ex: user)
     //    2. Getters pour display dans la view (trouver un nom cohérent)
-4. Gérer la responsivité
+4. // Gérer la responsivité
 
 ---
 
 COMPOSANTS
 
 //1. Formulaire
-2. Base card
 // 3. Users Infos pour récupérer la data avec props
 // 4. Modal
 
@@ -53,10 +52,9 @@ UPDATE DATA
 
 DESIGN
 
-  1. Créer une BaseCard pour styliser le dashboard
-  2. Créer l'ouverture du dashboard au click (active class ?)
-  3. Permettre de rajouter une photo de profil
-  4. Styliser le côté "Admin" et la navigation
+  1. // Créer l'ouverture du dashboard au click
+  2. // Permettre de rajouter une photo de profil
+  3. // Styliser le côté "Admin" et la navigation
 
 
 

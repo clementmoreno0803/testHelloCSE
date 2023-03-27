@@ -2,26 +2,8 @@
 <h2>Vos membres</h2>
 <div v-if="!firstEmployee" class="member-container">
   <div class="dashboard">
-    <!-- <dash-board @click="openEmployee"></dash-board> -->
-    <div class="fullname">
-      <!-- Tabs = Employee -->
-      <!-- currentTab = emp[0] -->
-      <h4  v-for="emp in Employee" :key="emp.id"
-       >
-      <!-- :class="['tab-button', { active: Emp[0] === emp }]"
-       @click="currentTab = tab" -->
-        {{emp.first}}
-        {{emp.last}}
-      </h4 >
-    </div>
-    <ul>
-      <li>
-        <!-- :is="currentTab" -->
-      <employee  v-for="emp in Employee" :key="emp.id" :id="emp.id" :image="emp.img"
-      :first-name="emp.first" :last-name="emp.last" :description="emp.desc">
-      </employee>
-      </li>
-    </ul>
+          <employee v-for="emp in Employee" :key="emp.id" :id="emp.id" :image="emp.img" :first-name="emp.first" :last-name="emp.last" :description="emp.desc">
+          </employee>
     <modal></modal>
   </div>
 </div>
@@ -38,7 +20,6 @@ export default {
     Employee,
     Modal,
   },
-  props: ['id'],
   computed: {
     Employee() {
       return this.$store.state.dataUser
@@ -49,12 +30,6 @@ export default {
     firstEmployee() {
       return this.$store.getters.firstEmployee
     },
-    activeElementId(){
-      return this.$store.state.activeElementId
-    },
-    isActive() {
-      return this.id === this.activeElementId;
-    },
   },
 
   methods: {
@@ -63,13 +38,6 @@ export default {
     },
     removeEmployee() {
       this.$store.dispatch('removeEmployee', this.employee)
-    },
-    setActiveElementId(){
-      this.$store.commit('setActiveElementId')
-    },
-    toggleActive() {
-      this.setActiveElementId(this.isActive ? null : this.id);
-      console.log(this.id)
     },
   },
   mounted() {
@@ -108,13 +76,15 @@ ul {
 
 .dashboard {
   display: flex;
+  flex-direction: column;
 }
 
-.fullname{
+.fullname {
   display: flex;
   flex-direction: column;
 }
-.tab-button{
+
+.tab-button {
   background: green;
 }
 

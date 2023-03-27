@@ -1,14 +1,17 @@
 <template>
-<div class="employee-list">
-  <div class="profil">
-    <img :src="image" class="thumbnail " alt="Thumbnail">
-    <div class="update-profil">
-      <i class="fa-solid fa-pencil" @click="toggleShowValue"></i>
-      <i class="fa-solid fa-trash" @click="removeEmployee"></i>
-      <h3>{{firstName}} {{lastName}}</h3>
+<div class="employee-list-container">
+  <h3 @click="openEmployee(id)">{{firstName}} {{lastName}}</h3>
+  <div class="employee-list" v-show="isShow">
+    <div class="profil">
+      <img :src="image" class="thumbnail " alt="Thumbnail">
+      <div class="update-profil">
+        <i class="fa-solid fa-pencil" @click="toggleShowValue"></i>
+        <i class="fa-solid fa-trash" @click="removeEmployee"></i>
+        <h4>{{firstName}} {{lastName}}</h4>
+      </div>
     </div>
+    <span>{{description}}</span>
   </div>
-  <span>{{description}}</span>
 </div>
 <modal :show="showValue" @close-modal="toggleShowValue" :id="id"></modal>
 </template>
@@ -50,6 +53,12 @@ export default {
       require: true
     }
   },
+  computed: {
+    // Montre le contenu de chaque employée
+    isShow() {
+      return this.$store.getters.isOpen(this.id)
+    }
+  },
   methods: {
     // Récupère l'iD et le dispatch pour l'update du profil
     updateForm() {
@@ -63,19 +72,40 @@ export default {
     toggleShowValue() {
       this.showValue = !this.showValue;
     },
+    openEmployee(id) {
+      this.$store.commit('setOpenEmployeeID', this.$store.getters.isOpen(id) ? null : id)
+    }
   },
 }
 </script>
 
 <style scoped>
+h3 {
+  background: #208fbd;
+  color: white;
+  margin: 0;
+  width: 280px;
+  border: 1px solid white;
+  padding: 10px;
+}
+
+.employee-list-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .thumbnail {
   width: 100px;
   height: auto;
-
+  margin-bottom: 20px;
 }
 
 .employee-list {
   display: block;
+  border: 2px solid rgb(32, 143, 189);
+  padding: 20px;
+  word-break: break-all;
+  max-width: 258px;
 }
 
 .profil {
@@ -96,5 +126,12 @@ i {
 
 .fa-trash {
   color: rgb(230, 138, 138);
+}
+
+@media (min-width: 768px) {
+  .employee-list-container {
+    display: flex;
+    flex-direction: row;
+  }
 }
 </style>

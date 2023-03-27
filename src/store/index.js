@@ -4,17 +4,24 @@ export default createStore({
   state: {
     // Store les data objets de chaque nouvel employé(e)s
     dataUser: [],
-    activeElementId: null,
+    // Store l'état de base de chaque card employé
+    openedEmployeeId : null
   },
   getters: {
     //display l'état du state dans la page Nos membres
     displayEmployees(state) {
       return state.dataUser;
     },
+    // Permet de display un message si aucun employé(e) n'est encore entré en base de donnée
     firstEmployee(state){
       if(state.dataUser.length == 0){
         return state.dataUser
       }
+    },
+    // Permet de savoir si l'id de l'employé(e) est égal à l'id du nom sur lequel on clique
+    isOpen: state => id => {
+      return state.openedEmployeeId == id
+
     }
   },
   mutations: {
@@ -36,10 +43,11 @@ export default createStore({
       const index = state.dataUser.findIndex(obj => obj.id === updatedObject.id);
       state.dataUser.splice(index, 1, updatedObject);
     },
-    // Récupère l'iD et le transmet au state activeElementId
-    setActiveElementId(state, id) {
-      state.activeElementId = id;
+    // Permet de récupérer l'id du composent à toggle
+    setOpenEmployeeID(state, id){
+      state.openedEmployeeId = id
     },
+
     //Récupérer l'url de l'image
     updateImageURL(state, url) {
       state.dataUser = url;
